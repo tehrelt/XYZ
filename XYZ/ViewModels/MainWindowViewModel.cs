@@ -1,4 +1,7 @@
-﻿using XYZ.ViewModels.Base;
+﻿using System.Windows;
+using System.Windows.Input;
+using XYZ.Infrastructure.Commands;
+using XYZ.ViewModels.Base;
 
 namespace XYZ.ViewModels
 {
@@ -23,5 +26,27 @@ namespace XYZ.ViewModels
             set => Set(ref _status, value);
         }
         #endregion
+
+        #region Команды
+
+        #region CloseApplicationCommand
+        public ICommand CloseApplicationCommand { get; } 
+        private bool CanCloseApplicationCommandExecute(object p) => true;
+        private void OnCloseApplicationCommandExecuted(object p)
+        {
+            Application.Current.Shutdown();
+        }
+        #endregion
+
+        #endregion
+
+        public MainWindowViewModel()
+        {
+            #region Команды
+
+            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+
+            #endregion
+        }
     }
 }
