@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace XYZ.ViewModels.Base
 {
-    internal abstract class ViewModel : INotifyPropertyChanged
+    internal abstract class ViewModel : INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -19,6 +20,22 @@ namespace XYZ.ViewModels.Base
             field = value;
             OnPropertyChanged(propertyName);
             return true;
+        }
+
+        //~ViewModel()
+        //{
+        //    Dispose(false);
+        //}
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        private bool _disposed;
+        protected virtual void Dispose(bool Disposing)
+        {
+            if (!Disposing || _disposed) return;
+            _disposed = true;
         }
     }
 }
