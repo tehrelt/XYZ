@@ -25,6 +25,19 @@
     
     <DockPanel>
         <Menu DockPanel.Dock="Top">
+            <MenuItem Command="{Binding ChangeTabIndexCommand}" CommandParameter="-1">
+                <MenuItem.Header>
+                    <fa:ImageAwesome Icon="Regular_ArrowAltCircleLeft" Height="13"/>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Command="{Binding ChangeTabIndexCommand}" CommandParameter="+1">
+                <MenuItem.Header>
+                    <fa:ImageAwesome Icon="Regular_ArrowAltCircleRight" Height="13"/>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem IsEnabled="False">
+                <GridSplitter Width="4" Height="5" />
+            </MenuItem>
             <MenuItem Header="Файл">
                 <!--<MenuItem Header="Выход" Command="{Binding CloseApplicationCommand}"/>-->
                 <MenuItem Header="Выход" Command="{StaticResource CloseApplicationCommand}"/>
@@ -37,7 +50,9 @@
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе"/>
             </MenuItem>
+            
         </Menu>
+
 
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem MinWidth="150" MaxWidth="350">
@@ -46,9 +61,10 @@
             <StatusBarItem>
                 <ProgressBar Width="120" Height="14" Value="30"/>
             </StatusBarItem>
+            <StatusBarItem Content="{Binding SelectedPageIndex }"/>
         </StatusBar>
 
-        <TabControl SelectedIndex="">
+        <TabControl SelectedIndex="{Binding SelectedPageIndex}">
             <!--График-->
             <TabItem>
                 <TabItem.Header>
@@ -60,7 +76,7 @@
                 <oxy:PlotView Model="{Binding PlotModel}" />
             </TabItem>
             <!--Вкладка 1-->
-            <TabItem Visibility="Collapsed">
+            <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Regular_File" Height="13" Margin="0,0,5,0" />
@@ -100,6 +116,11 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="1"></TabItem>
+            <TabItem Header="2"></TabItem>
+            <TabItem Header="3"></TabItem>
+            <TabItem Header="4"></TabItem>
+            <TabItem Header="5"></TabItem>
         </TabControl>
     </DockPanel>
 

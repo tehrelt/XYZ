@@ -31,6 +31,20 @@ namespace XYZ.ViewModels
         }
         #endregion
 
+        #region SelectedPageIndex : int - Номер выбранной вкладки
+
+        private int _selectedPageIndex = 0;
+        /// <summary>
+        /// Номер выбранной вкладки
+        /// </summary>
+        public int SelectedPageIndex 
+        { 
+            get => _selectedPageIndex; 
+            set => Set(ref _selectedPageIndex, value); 
+        }
+
+        #endregion
+
         #region TestDataPoints : IEnumerable<DataPoint> - Тестовый набор данных для визуализации
 
         private IEnumerable<DataPoint> _testDataPoints;
@@ -69,6 +83,19 @@ namespace XYZ.ViewModels
         }
         #endregion
 
+        #region ChangeTabIndexCommand
+
+        public ICommand ChangeTabIndexCommand { get; }
+        private bool CanChangeTabIndexCommandExecute(object p) => _selectedPageIndex >= 0;
+        private void OnChangeTabIndexCommandExecuted(object p)
+        {
+            if (p is null) return;
+            if (_selectedPageIndex == 0 && Convert.ToInt32(p) < 0) return;
+            SelectedPageIndex += Convert.ToInt32(p);
+        }
+
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
@@ -76,6 +103,7 @@ namespace XYZ.ViewModels
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            ChangeTabIndexCommand   = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
 
             #endregion
 
