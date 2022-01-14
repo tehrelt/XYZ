@@ -4,6 +4,7 @@
         xmlns:d     ="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc    ="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa    ="http://schemas.fontawesome.com/icons/"
+        xmlns:oxy   ="http://oxyplot.org/wpf"
         xmlns:l     ="clr-namespace:XYZ"
         xmlns:vm    ="clr-namespace:XYZ.ViewModels"
         xmlns:cmd   ="clr-namespace:XYZ.Infrastructure.Commands"
@@ -47,8 +48,19 @@
             </StatusBarItem>
         </StatusBar>
 
-        <TabControl>
+        <TabControl SelectedIndex="">
+            <!--График-->
             <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Solid_DollarSign" Height="13" Margin="0,0,5,0"/>
+                        <TextBlock Text="График"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <oxy:PlotView Model="{Binding PlotModel}" />
+            </TabItem>
+            <!--Вкладка 1-->
+            <TabItem Visibility="Collapsed">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Regular_File" Height="13" Margin="0,0,5,0" />
@@ -64,7 +76,7 @@
                         <ColumnDefinition Width="90*"/>
                         <ColumnDefinition Width="300*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Rectangle  Grid.Column="0" Grid.Row="0"
                                 Margin="5,7"
                                 Fill="Black" 
@@ -81,15 +93,13 @@
                         </Ellipse.InputBindings>
                     </Ellipse>
 
-                        <GridSplitter Grid.Column="0" Grid.Row="0" 
+                    <GridSplitter Grid.Column="0" Grid.Row="0" 
                                   Grid.RowSpan="2"
                                   HorizontalAlignment="Right"
                                   Width="4"/>
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Вкладка 2"></TabItem>
-            <TabItem Header="Вкладка 3"></TabItem>
         </TabControl>
     </DockPanel>
 

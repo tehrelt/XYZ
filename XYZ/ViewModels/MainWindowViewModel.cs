@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OxyPlot;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -37,18 +38,30 @@ namespace XYZ.ViewModels
         /// Тестовый набор данных для визуализации
         /// </summary>
         public IEnumerable<DataPoint> TestDataPoints
-        { 
+        {
             get => _testDataPoints;
             set => Set(ref _testDataPoints, value);
         }
 
 
+
         #endregion
+
+        #region PlotModel : PlotModel - Модель графика
+
+        private PlotModel _plotModel;
+        /// <summary>
+        /// Модель графика
+        /// </summary>
+        public PlotModel PlotModel { get => _plotModel; set => Set(ref _plotModel, value);}
+
+        #endregion
+
 
         #region Команды
 
         #region CloseApplicationCommand
-        public ICommand CloseApplicationCommand { get; } 
+        public ICommand CloseApplicationCommand { get; }
         private bool CanCloseApplicationCommandExecute(object p) => true;
         private void OnCloseApplicationCommandExecuted(object p)
         {
@@ -66,16 +79,16 @@ namespace XYZ.ViewModels
 
             #endregion
 
-            var dataPoints = new List<DataPoint>((int)(360 / 0.1));
-            for(var x = 0d; x <= 360; x+=0.1)
-            {
-                const double TO_RAD = Math.PI / 180;
-                var y = Math.Sin(x * TO_RAD);
 
-                dataPoints.Add(new DataPoint { X = x, Y = y });
+            var dataPoints = new List<DataPoint>((int)(360 / 0.1));
+            for (double x = 0; x <= 10; x += 0.1)
+            {
+                var y = Math.Sin(x);
+                dataPoints.Add(new DataPoint(x, y));
             }
 
-            TestDataPoints = dataPoints;
+            PlotModel = new Plot("Prikol", dataPoints).GetPlot();
+
         }
     }
 }
