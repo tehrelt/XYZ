@@ -5,7 +5,6 @@ namespace XYZ.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
         private string _title = "Анализ статистики XYZ";
-
         /// <summary>Заголовок окна</summary>
         public string Title
         {
