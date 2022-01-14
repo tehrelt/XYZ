@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="59,142,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="176,142,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Slider HorizontalAlignment="Left" Margin="318,158,0,0" VerticalAlignment="Top" Width="120"/>
+        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="176,172,0,0" VerticalAlignment="Top"/>
+        <ProgressBar HorizontalAlignment="Left" Height="10" Margin="487,235,0,0" VerticalAlignment="Top" Width="100" Value="60"/>
 
     </Grid>
 </Window>
