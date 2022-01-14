@@ -11,7 +11,7 @@ namespace XYZConsole
     internal class Program
     {
         private const string DATA_URL = @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
-
+        private const string SIRUS_URL = @"https://sirus.su/statistic/online/#/";
         static void Main(string[] args)
         {
             //var client = new HttpClient();
@@ -31,12 +31,13 @@ namespace XYZConsole
                 .First(e => e.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
 
             Console.WriteLine
+            (
+                string.Join
                 (
-                string.Join(
-                    "\r\n", 
-                    GetDates()
-                        .Zip(russiaData.Counts, (date, count) => $"{date:dd.mm.yy} - {count}"))
-                );
+                    "\r\n",
+                    GetDates().Zip(russiaData.Counts, (date, count) => $"{date:dd.mm.yyyy} - {count}")
+                )
+            );
 
             Console.ReadLine();
         }
@@ -46,6 +47,17 @@ namespace XYZConsole
             var response = await client.GetAsync(DATA_URL, HttpCompletionOption.ResponseHeadersRead);
             return await response.Content.ReadAsStreamAsync();
         }
+
+        //private static async Task<Stream> GetDataStream()
+        //{
+        //    var client = new HttpClient { Timeout = new TimeSpan(0, 0, 30)};
+        //    try
+        //    {
+        //        var response = await client.GetAsync(SIRUS_URL, HttpCompletionOption.ResponseHeadersRead);
+
+        //    }
+        //    return await response.Content.ReadAsStreamAsync();
+        //}
 
         private static IEnumerable<string> GetDataLines()
         {
